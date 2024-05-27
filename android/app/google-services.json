@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "934531042012",
+    "project_id": "base-de-datos-osmar",
+    "storage_bucket": "base-de-datos-osmar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934531042012:android:3450b0bb96f2182e560219",
+        "android_client_info": {
+          "package_name": "mx.edu.ittepic.ganado_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeAh_dYCLzf_MXDNqaesl213YvJjwH1QY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
