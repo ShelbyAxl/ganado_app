@@ -21,6 +21,26 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Ganado APP"),
+        centerTitle: true,
+        backgroundColor: Colors.black,
+      ),
+      body: dinamico(),
+    );
+  }
+
+  Widget dinamico(){
+    return crudCorral();
+  }
+
+  Widget crudVacas(){
+    return ListView();
+  }
+
+
+  Widget crudCorral(){
+    return ListView();
   }
 }
