@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:ganado_app/inscribir.dart';
 import 'firebase_options.dart';
+import 'controlador/ServiciosRemoto.dart';
 
 void main() async{
 
@@ -27,7 +29,7 @@ class _MyAppState extends State<MyApp> {
         centerTitle: true,
         backgroundColor: Color.fromRGBO(200, 50, 50, 1),
       ),
-      body: RegistrarCorral(),
+      body: login(),
     );
   }
 
@@ -58,7 +60,33 @@ class _MyAppState extends State<MyApp> {
         Text("Contraseña", style: TextStyle(fontSize: 25),),
         TextField(controller: contrasena, decoration: InputDecoration(labelText: "°°°°°°°°"), ),
         SizedBox(height: 10,),
-        ElevatedButton(onPressed: (){}, child: Text('Entrar'))
+        ElevatedButton(onPressed: (){
+
+          Autenticacion.autenticarUsuario(usuario.text, contrasena.text)
+              .then((value) {
+            setState(() {
+
+            });
+            if(value!=null){
+
+            }else{
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error")));
+            }
+          });
+        }, child: Text('Entrar')),
+        SizedBox(
+          height: 40,
+        ),
+        TextButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (content) {
+                return Inscribir();
+              }));
+            },
+            child: Text("Inscribir usuario")),
+        SizedBox(
+          height: 50,
+        )
       ],
     );
   }
