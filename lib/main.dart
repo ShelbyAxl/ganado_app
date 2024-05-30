@@ -258,6 +258,13 @@ class _MyAppState extends State<MyApp> {
         peso: peso,
       );
 
+      FirebaseFirestore baseRemota = FirebaseFirestore.instance;
+
+      baseRemota.collection("ganadoApp").add({
+        'noArete' : areteController.text,
+        'raza' : razaController.text,
+        'peso' : pesoController.text
+      }).then((value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Se insertó en la nube"))));
 
       await DB.insertarVaca(nuevaVaca);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -267,13 +274,7 @@ class _MyAppState extends State<MyApp> {
       _cargarVacas();
     }
 
-    FirebaseFirestore baseRemota = FirebaseFirestore.instance;
 
-    baseRemota.collection("ganadoApp").add({
-      'noArete' : areteController.text,
-      'raza' : razaController.text,
-      'peso' : int.parse(pesoController.text)
-    }).then((value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Se insertó en la nube"))));
 
     Future<void> _actualizarVaca(String noArete) async {
       String raza = razaController.text;
@@ -419,28 +420,19 @@ class _MyAppState extends State<MyApp> {
           height: 10,
         ),
         Text(
-          "ubicacion",
+          "Ubicacion",
           style: TextStyle(fontSize: 25),
         ),
         TextField(
           controller: raza,
-          decoration: InputDecoration(labelText: "ubicacion"),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          "noArete",
-          style: TextStyle(fontSize: 25),
-        ),
-        TextField(
-          controller: peso,
-          decoration: InputDecoration(labelText: "noArete"),
+          decoration: InputDecoration(labelText: "Ubicacion"),
         ),
         SizedBox(
           height: 20,
         ),
-        ElevatedButton(onPressed: () {}, child: Text('Registrar'))
+        ElevatedButton(onPressed: () {
+
+        }, child: Text('Registrar'))
       ],
     );
   }
