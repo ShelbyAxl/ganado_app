@@ -21,6 +21,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  int indice = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,21 +30,13 @@ class _MyAppState extends State<MyApp> {
         centerTitle: true,
         backgroundColor: Color.fromRGBO(200, 50, 50, 1),
       ),
-      body: login(),
+      body: dinamico(indice),
     );
   }
 
-  Widget dinamico(){
-    return crudCorral();
-  }
 
-  Widget crudVacas(){
-    return ListView();
-  }
-
-
-  Widget crudCorral(){
-    return ListView();
+  Widget dinamico(int indice){
+    return indice == 0 ? login() : RegistarVaca();
   }
 
   Widget login(){
@@ -64,11 +57,11 @@ class _MyAppState extends State<MyApp> {
 
           Autenticacion.autenticarUsuario(usuario.text, contrasena.text)
               .then((value) {
-            setState(() {
 
-            });
             if(value!=null){
-
+              setState(() {
+                indice = 1;
+              });
             }else{
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error")));
             }
