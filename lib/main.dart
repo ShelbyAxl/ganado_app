@@ -7,6 +7,8 @@ import 'package:ganado_app/modelo/vaca.dart';
 import 'firebase_options.dart';
 import 'controlador/ServiciosRemoto.dart';
 import 'modelo/corral.dart';
+import 'Imagenes.dart';
+import 'package:file_picker/file_picker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,6 +54,34 @@ class _MyAppState extends State<MyApp> {
       body: dinamico(),
       drawer: menu(),
       bottomNavigationBar: navegacion(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async{
+          String titulo = "Storage";
+          final seleccionarArchivo = await FilePicker.platform.pickFiles(
+              allowedExtensions: ['png','jpg','jpeg'],
+              allowMultiple: false,
+              type: FileType.custom
+          );
+
+          if(seleccionarArchivo == null) {
+            setState(() {
+              titulo = "ARCHIVO NO SELECCIONADO";
+            });
+            return;
+          }
+
+          var path = seleccionarArchivo.files.single.path!!;
+          var nombre = seleccionarArchivo.files.single.name;
+          setState(() {
+            titulo = "CARGANDO IMAGEN";
+          });
+          Remoto.subirArchivo(path, nombre).then((value) {
+            setState(() {
+              titulo = "ARCHIVO CARGADO CORRECTAMENTE";
+            });
+          });
+        }, child: Icon(Icons.add),
+      ),
     );
   }
 
@@ -104,6 +134,48 @@ class _MyAppState extends State<MyApp> {
             child: Text(texto),
             flex: 2,
           )
+        ],
+      ),
+    );
+  }
+
+  String dirURL = "https://firebasestorage.googleapis.com/v0/b/conociendo-firebase-b616f.appspot.com/o/imagenes%2Fkamen_rider_geats_wallpaper_by_jxloud_dfmze4s-375w-2x.jpg?alt=media&token=21cb6105-de79-43d2-a0b5-480b7424006c";
+  Widget contenido() {
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            color: Colors.black,
+            height: 200,
+            child: FutureBuilder(
+                future: Remoto.mostrarNombresArchivosRemotos(),
+                builder: (context, listaNombres){
+                  if (listaNombres.hasData){
+                    return ListView.builder(
+                        itemCount: listaNombres.data!.items.length,
+                        itemBuilder: (content, indice){
+                          return Padding(padding: EdgeInsets.only(
+                              top: 10, left: 30, right: 30
+                          ), child: OutlinedButton(
+                            onPressed: () async{
+                              Remoto.cargarImagen(listaNombres.data!.items[indice].name).then((value){
+                                setState(() {
+                                  dirURL = value;
+                                });
+                              });
+                            }, child: Text(listaNombres.data!.items[indice].name),
+                          ),
+                          );
+                        }
+                    );
+
+                  }
+                  return CircularProgressIndicator();
+
+                }
+            ),
+          ),
+          Image.network(dirURL)
         ],
       ),
     );
