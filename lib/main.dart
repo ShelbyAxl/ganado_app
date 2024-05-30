@@ -34,6 +34,29 @@ class _MyAppState extends State<MyApp> {
   int _indexNav = 0;
   List<Vaca> vacas = [];
 
+
+  @override
+  void initState() {
+    super.initState();
+    _cargarVacas();
+    _cargarCorrales();
+  }
+
+  Future<void> _cargarVacas() async {
+    List<Vaca> vacasCargadas = await DB.mostrarTodasVacas();
+    setState(() {
+      vacas = vacasCargadas;
+    });
+  }
+
+  Future<void> _cargarCorrales() async {
+    List<Corral> corralesCargados = await DB.mostrarTodosCorrales();
+    setState(() {
+      corrales = corralesCargados;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return cuerpo();
