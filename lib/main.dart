@@ -6,6 +6,7 @@ import 'package:ganado_app/inscribir.dart';
 import 'package:ganado_app/modelo/vaca.dart';
 import 'firebase_options.dart';
 import 'controlador/ServiciosRemoto.dart';
+import 'modelo/corral.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -393,47 +394,170 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  final idCorralController = TextEditingController();
+  final ubicacionController = TextEditingController();
+  final noAreteController = TextEditingController();
+
+  List<Corral> corrales = [];
   Widget RegistrarCorral() {
-    final arete = TextEditingController();
-    final raza = TextEditingController();
-    final peso = TextEditingController();
+
+    Future<void> _cargarCorrales() async {
+      List<Corral> corralesCargados = await DB.mostrarTodosCorrales();
+      setState(() {
+        corrales = corralesCargados;
+      });
+    }
+
+    Future<void> _registrarCorral() async {
+      int idCorral = int.tryParse(idCorralController.text) ?? 0;
+      String ubicacion = ubicacionController.text;
+      String noArete = noAreteController.text;
+
+      Corral nuevoCorral = Corral(
+        idCorral: idCorral,
+        ubicacion: ubicacion,
+        noArete: noArete,
+      );
+
+      await DB.insertarCorral(nuevoCorral);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Corral registrado exitosamente'),
+      ));
+      FirebaseFirestore baseRemota = FirebaseFirestore.instance;
+
+      baseRemota.collection("ganadoApp").add({
+        'idCorral' : idCorralController.text,
+        'ubicacion' : ubicacionController.text,
+        'noArete' : noAreteController.text
+      }).then((value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Se insertó en la nube"))));
+      idCorralController.clear();
+      ubicacionController.clear();
+      noAreteController.clear();
+      _cargarCorrales();
+    }
+
+    Future<void> _actualizarCorral(int idCorral) async {
+      String ubicacion = ubicacionController.text;
+      String noArete = noAreteController.text;
+
+      Corral corralActualizado = Corral(
+        idCorral: idCorral,
+        ubicacion: ubicacion,
+        noArete: noArete,
+      );
+
+      await DB.actualizarCorral(corralActualizado);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Corral actualizado exitosamente'),
+      ));
+      idCorralController.clear();
+      ubicacionController.clear();
+      noAreteController.clear();
+      _cargarCorrales();
+    }
+
+
+    Future<void> _eliminarCorral(int idCorral) async {
+      await DB.eliminarCorral(idCorral);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Corral eliminado exitosamente'),
+      ));
+      _cargarCorrales();
+    }
+
+
+
     return ListView(
       padding: EdgeInsets.all(50),
       children: [
         Text(
-          'Registrar corral',
+          'Registrar Corral',
           style: TextStyle(fontSize: 30),
           textAlign: TextAlign.center,
         ),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10),
         Text(
-          "ID corral",
+          "ID del Corral",
           style: TextStyle(fontSize: 25),
         ),
         TextField(
-          controller: arete,
-          decoration: InputDecoration(labelText: "ID corral"),
+          controller: idCorralController,
+          decoration: InputDecoration(labelText: "ID del Corral"),
+          keyboardType: TextInputType.number,
         ),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10),
         Text(
-          "Ubicacion",
+          "Ubicación",
           style: TextStyle(fontSize: 25),
         ),
         TextField(
-          controller: raza,
-          decoration: InputDecoration(labelText: "Ubicacion"),
+          controller: ubicacionController,
+          decoration: InputDecoration(labelText: "Ubicación"),
         ),
-        SizedBox(
-          height: 20,
+        SizedBox(height: 10),
+        Text(
+          "Número de Arete",
+          style: TextStyle(fontSize: 25),
         ),
-        ElevatedButton(onPressed: () {
-
-        }, child: Text('Registrar'))
+        TextField(
+          controller: noAreteController,
+          decoration: InputDecoration(labelText: "Número de Arete"),
+        ),
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: _registrarCorral,
+          child: Text('Registrar'),
+        ),
+        SizedBox(height: 20),
+        Text(
+          'Lista de Corrales',
+          style: TextStyle(fontSize: 25),
+          textAlign: TextAlign.center,
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: corrales.length,
+          itemBuilder: (context, index) {
+            Corral corral = corrales[index];
+            return ListTile(
+              title: Text('ID: ${corral.idCorral}'),
+              subtitle: Text('Ubicación: ${corral.ubicacion}, No de Arete: ${corral.noArete}'),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () {
+                      idCorralController.text = corral.idCorral.toString();
+                      ubicacionController.text = corral.ubicacion;
+                      noAreteController.text = corral.noArete;
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      _eliminarCorral(corral.idCorral);
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () {
+            if (idCorralController.text.isNotEmpty) {
+              _actualizarCorral(int.parse(idCorralController.text));
+            }
+          },
+          child: Text('Actualizar'),
+        ),
       ],
     );
   }
+
+
+
 }
