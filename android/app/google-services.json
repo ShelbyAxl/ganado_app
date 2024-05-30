@@ -1,13 +1,89 @@
 {
   "project_info": {
-    "project_number": "934531042012",
-    "project_id": "base-de-datos-osmar",
-    "storage_bucket": "base-de-datos-osmar.appspot.com"
+    "project_number": "726001016508",
+    "project_id": "conociendo-firebase-b616f",
+    "storage_bucket": "conociendo-firebase-b616f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:934531042012:android:3450b0bb96f2182e560219",
+        "mobilesdk_app_id": "1:726001016508:android:d98ead70e799ba6de1fab9",
+        "android_client_info": {
+          "package_name": "com.example.dam_u4_ejercicio1_conociendonubefirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYOjtf63r57uXp8dfPq1BYz7pYy28slMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726001016508:android:309df8e81c9e6f3de1fab9",
+        "android_client_info": {
+          "package_name": "com.example.dam_u4_ejercicio3_storage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYOjtf63r57uXp8dfPq1BYz7pYy28slMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726001016508:android:10947c1d67e91cf0e1fab9",
+        "android_client_info": {
+          "package_name": "com.example.dam_u4_ejercicio4_autenticacion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYOjtf63r57uXp8dfPq1BYz7pYy28slMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726001016508:android:3c7aac85f8abf6dbe1fab9",
+        "android_client_info": {
+          "package_name": "mx.com.ittepic.dam_unidad4_ejercicio2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYOjtf63r57uXp8dfPq1BYz7pYy28slMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726001016508:android:5c1e007c76103c46e1fab9",
         "android_client_info": {
           "package_name": "mx.edu.ittepic.ganado_app"
         }
@@ -15,7 +91,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDeAh_dYCLzf_MXDNqaesl213YvJjwH1QY"
+          "current_key": "AIzaSyAYOjtf63r57uXp8dfPq1BYz7pYy28slMk"
         }
       ],
       "services": {

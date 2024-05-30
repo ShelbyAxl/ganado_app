@@ -1,7 +1,7 @@
-import 'package:ganado_app/modelo/corral.dart';
-import 'package:ganado_app/modelo/vaca.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import '../modelo/vaca.dart';
+import '../modelo/corral.dart';
 
 class DB {
   static Future<Database> _abrirDB() async {

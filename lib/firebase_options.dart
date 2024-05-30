@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDeAh_dYCLzf_MXDNqaesl213YvJjwH1QY',
-    appId: '1:934531042012:android:3450b0bb96f2182e560219',
-    messagingSenderId: '934531042012',
-    projectId: 'base-de-datos-osmar',
-    storageBucket: 'base-de-datos-osmar.appspot.com',
+    apiKey: 'AIzaSyAYOjtf63r57uXp8dfPq1BYz7pYy28slMk',
+    appId: '1:726001016508:android:5c1e007c76103c46e1fab9',
+    messagingSenderId: '726001016508',
+    projectId: 'conociendo-firebase-b616f',
+    storageBucket: 'conociendo-firebase-b616f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDPBzxaXb_gR0EYmO-A9dsOr6DrthVu80A',
-    appId: '1:934531042012:ios:4a2a9c8771a9f8d0560219',
-    messagingSenderId: '934531042012',
-    projectId: 'base-de-datos-osmar',
-    storageBucket: 'base-de-datos-osmar.appspot.com',
+    apiKey: 'AIzaSyCqHYCZAoQuQjgXE6Sj0VjDpfqik5XTj7A',
+    appId: '1:726001016508:ios:951f630ce1c65714e1fab9',
+    messagingSenderId: '726001016508',
+    projectId: 'conociendo-firebase-b616f',
+    storageBucket: 'conociendo-firebase-b616f.appspot.com',
     iosBundleId: 'mx.edu.ittepic.ganadoApp',
   );
+
 }
