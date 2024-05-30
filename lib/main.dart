@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ganado_app/inscribir.dart';
@@ -130,6 +131,8 @@ class _MyAppState extends State<MyApp> {
         SizedBox(height: 20),
         ElevatedButton(
           onPressed: () async {
+
+
             String arete = areteController.text;
             String raza = razaController.text;
             double peso = double.tryParse(pesoController.text) ?? 0.0;
@@ -142,9 +145,16 @@ class _MyAppState extends State<MyApp> {
 
             await DB.insertarVaca(nuevaVaca);
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Vaca registrada exitosamente'),
+              content: Text('Vaca registrada exitosamente en local'),
             ));
 
+            FirebaseFirestore baseRemota = FirebaseFirestore.instance;
+
+            baseRemota.collection("ganadoApp").add({
+              'noArete' : areteController.text,
+              'raza' : razaController.text,
+              'peso' : int.parse(pesoController.text)
+            }).then((value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Se insertó en la nube"))));
             // Clear the text fields
             areteController.clear();
             razaController.clear();
