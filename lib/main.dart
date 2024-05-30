@@ -186,12 +186,17 @@ class _MyAppState extends State<MyApp> {
       items: [
         BottomNavigationBarItem(
             icon: Icon(Icons.list),
+            label: 'GALERIA',
+            backgroundColor: Color.fromRGBO(0, 11, 23, 1)),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.list),
             label: 'VACAS',
             backgroundColor: Color.fromRGBO(0, 11, 23, 1)),
         BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'CORRAL',
             backgroundColor: Color.fromRGBO(0, 11, 23, 1)),
+
       ],
       currentIndex: _indexNav,
       onTap: (index) {
@@ -209,7 +214,8 @@ class _MyAppState extends State<MyApp> {
     switch(_indexMenu){
       case 0: switch(_indexNav){
         case 1: return RegistarVaca();
-        default: return RegistrarCorral();
+        case 2: return RegistrarCorral();
+        default: return contenido();
       }
       case 1: switch(_indexNav){
         case 1: return RegistarVaca();
